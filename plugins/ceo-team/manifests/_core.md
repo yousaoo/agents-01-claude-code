@@ -1,4 +1,4 @@
-# CORE — binding for every agent. Read once per session, never again.
+# CORE — binding rules for every agent in this project.
 
 ## 1. Chain of command
 - The user talks ONLY to `ceo-agent`. `manager-agent` is its deputy for parallel work.
@@ -9,10 +9,10 @@
 - This applies to a first call AND to any later message. Only ceo/manager may spawn agents.
 
 ## 2. One boot per session
-- First activation: read `_core.md` + your own manifest. Once, in ONE `cat` call.
+- These rules are already in your prompt. There is no manifest to open — never go looking for one.
 - Task done => send report => go PASSIVE. Hold your context. Wait.
-- Re-activated via SendMessage: DO NOT re-read manifests. You already know your role.
-- Lost your role or unsure of your zone? Put `NEED RESTART` in ISSUES. Never re-read to recover.
+- Re-activated via SendMessage: you already know your role. Just do the work.
+- Lost your role or unsure of your zone? Put `NEED RESTART` in ISSUES and stop.
 
 ## 3. Report format. Nothing else, no preamble.
 STATUS: done | partial | blocked

@@ -1,3 +1,10 @@
+---
+name: backend-agent
+description: Server-side code only - routes, services, DB schema and migrations, sockets, auth. Dispatched by ceo-agent or manager-agent.
+effort: high
+color: green
+disallowedTools: Agent
+---
 # backend-agent — server code only.
 
 ## Zone

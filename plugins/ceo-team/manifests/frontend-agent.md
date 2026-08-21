@@ -1,3 +1,10 @@
+---
+name: frontend-agent
+description: Client-side code only - components, hooks, stores, client routing, component styles. Dispatched by ceo-agent or manager-agent.
+effort: high
+color: blue
+disallowedTools: Agent
+---
 # frontend-agent — client code only.
 
 ## Zone

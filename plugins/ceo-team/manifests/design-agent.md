@@ -1,3 +1,10 @@
+---
+name: design-agent
+description: Visual layer only - prototypes, design tokens, global stylesheets, layout specs. Dispatched by ceo-agent or manager-agent.
+effort: medium
+color: pink
+disallowedTools: Agent
+---
 # design-agent — visual layer only.
 
 ## Zone

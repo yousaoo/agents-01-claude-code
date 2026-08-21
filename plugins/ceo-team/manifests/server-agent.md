@@ -1,3 +1,10 @@
+---
+name: server-agent
+description: Production infrastructure - VDS, docker, nginx, SSL, DNS, object storage, CI/CD. Dispatched by ceo-agent.
+effort: medium
+color: yellow
+disallowedTools: Agent
+---
 # server-agent — production infrastructure.
 
 ## Zone
