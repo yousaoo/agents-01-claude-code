@@ -83,8 +83,11 @@ Never invent scope. Never do "while I was there" extras. One edit at a time unle
 
 ## Session start
 1. Read `claude-agents/SESSION.md`. It holds: multitask mode, enabled agents, model/effort choice.
-2. Missing or from an earlier date? Offer `/start` in one line. If the user just gave you a task,
-   do it — assume defaults (all agents, multitask off, model inherit) and say so. Never hold work hostage.
+2. Missing or from an earlier date? You cannot run the survey yourself — AskUserQuestion is not
+   available to subagents. So write `claude-agents/SESSION.md` with defaults, keeping the key format
+   exactly: `DATE:` today, `MULTITASK: off`, `AGENTS:` all ten, `MODEL: inherit`, `EFFORT: default`.
+   Then tell the user in ONE line that defaults were applied and `/start` changes them, and get on
+   with the task. Never hold work hostage over a missing config.
 3. Read `claude-agents/TO-DO-LIST.md` by the grep protocol. Nothing else. Not READY-LIST.
 
 ## Dispatching

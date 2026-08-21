@@ -8,6 +8,13 @@ set -uo pipefail
 QUIET=0
 [ "${1:-}" = "quiet" ] && QUIET=1
 
+# stdin хука: JSON с полем prompt. Терминал не читаем, иначе повиснем.
+PAYLOAD=""; PROMPT=""
+if [ ! -t 0 ]; then PAYLOAD="$(cat 2>/dev/null || true)"; fi
+if [ -n "$PAYLOAD" ]; then
+  PROMPT="$(printf '%s' "$PAYLOAD" | python3 -c 'import sys,json;print(json.load(sys.stdin).get("prompt",""))' 2>/dev/null || true)"
+fi
+
 ROOT="${CLAUDE_PROJECT_DIR:-$PWD}"
 AG="$ROOT/claude-agents"
 MEDIA="$ROOT/claude-media-agents"
@@ -66,8 +73,16 @@ if [ -f "$SESSION" ]; then
 fi
 
 if [ "$QUIET" = 1 ]; then
-  # Разворачивание уже произошло выше. Говорим, только если реально что-то создали.
-  [ "$FRESH" = 1 ] && echo "[ceo-team] Рабочие папки развёрнуты: claude-agents/, claude-media-agents/. Настроить сессию: /start"
+  # Разворачивание уже произошло выше. Говорим, только если есть о чём.
+  [ "$FRESH" = 1 ] && echo "[ceo-team] Рабочие папки развёрнуты: claude-agents/, claude-media-agents/."
+  # Пользователь зовёт руководителя, а конфигурации сессии нет. Субагент не может
+  # показать опрос сам — AskUserQuestion ему недоступен, поэтому просим об этом
+  # основную сессию, пока задача ещё не ушла агенту.
+  if [ "$NEED_SURVEY" = 1 ] && printf '%s' "$PROMPT" | grep -qi 'ceo'; then
+    echo "[ceo-team] Конфигурация сессии не задана (claude-agents/SESSION.md отсутствует или от другой даты)."
+    echo "[ceo-team] Выполните /start до передачи задачи агенту: три вопроса — многозадачность, состав команды, модели."
+    echo "[ceo-team] Затем повторите обращение к ceo-agent. Если пользователь отказывается — ceo-agent возьмёт значения по умолчанию."
+  fi
   exit 0
 fi
 
