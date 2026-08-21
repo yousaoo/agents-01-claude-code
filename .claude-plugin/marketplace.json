@@ -1,0 +1,15 @@
+{
+  "name": "agents-01-claude-code",
+  "owner": {
+    "name": "yousaoo",
+    "url": "https://github.com/yousaoo"
+  },
+  "description": "Команда агентов Claude Code под управлением ceo-agent: короткие манифесты, память с маркерами, контроль галлюцинаций.",
+  "plugins": [
+    {
+      "name": "ceo-team",
+      "source": "./plugins/ceo-team",
+      "description": "Команда из 10 агентов Claude Code под управлением ceo-agent: экономия токенов через манифесты-конституции и память с маркерами."
+    }
+  ]
+}
