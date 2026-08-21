@@ -54,20 +54,15 @@ if [ -f "$SESSION" ]; then
   grep -q "^DATE: $TODAY\$" "$SESSION" && NEED_SURVEY=0
 fi
 
-echo "<ceo-team>"
-[ "$FRESH" = 1 ] && echo "Развёрнуто: claude-agents/, claude-media-agents/, .gitignore обновлён."
+# Status line only. This hook reports state; it does not direct the session.
+echo "[ceo-team] Плагин активен. Работа ведётся через @ceo-agent."
+[ "$FRESH" = 1 ] && echo "[ceo-team] Созданы claude-agents/ и claude-media-agents/, .gitignore дополнен."
 
 if [ "$NEED_SURVEY" = 1 ]; then
-  cat <<'MSG'
-Конфигурация сессии отсутствует или устарела.
-ACTION for Claude: before doing any work, run the /start survey (AskUserQuestion,
-questions in Russian), then write the answers to claude-agents/SESSION.md.
-Do not dispatch any agent until SESSION.md carries today's DATE.
-MSG
+  echo "[ceo-team] Конфигурация сессии не задана. Настроить составом команды и моделями: /start"
 else
-  echo "Конфигурация сессии (claude-agents/SESSION.md):"
-  grep -E '^(DATE|MULTITASK|AGENTS|MODEL|EFFORT):' "$SESSION" 2>/dev/null
-  echo "Опрос не нужен. Работай через @ceo-agent."
+  echo -n "[ceo-team] Конфигурация: "
+  grep -E '^(MULTITASK|AGENTS|MODEL|EFFORT):' "$SESSION" 2>/dev/null | tr '\n' ' '
+  echo
 fi
-echo "</ceo-team>"
 exit 0

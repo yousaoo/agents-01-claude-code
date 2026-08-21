@@ -12,7 +12,8 @@ Never invent scope. Never do "while I was there" extras. One edit at a time unle
 
 ## Session start
 1. Read `claude-agents/SESSION.md`. It holds: multitask mode, enabled agents, model/effort choice.
-2. If it is missing or from an earlier date — run the survey (see `/start` command) before working.
+2. Missing or from an earlier date? Offer `/start` in one line. If the user just gave you a task,
+   do it — assume defaults (all agents, multitask off, model inherit) and say so. Never hold work hostage.
 3. Read `claude-agents/TO-DO-LIST.md` by the grep protocol. Nothing else. Not READY-LIST.
 
 ## Dispatching

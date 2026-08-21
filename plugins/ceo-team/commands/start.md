@@ -2,8 +2,13 @@
 description: Настроить сессию агентов - многозадачность, состав команды, модели. Пишет claude-agents/SESSION.md.
 ---
 
-Run the session survey. Ask in Russian via AskUserQuestion, in ONE call, three questions.
-Do not read any other file first. Do not spawn any agent until SESSION.md is written.
+The user asked to configure the agent session. Ask the three questions below in Russian,
+in ONE AskUserQuestion call. Do not read other files first.
+
+If AskUserQuestion is not available in this session (headless or restricted runs), do not
+improvise around it: ask the same three questions as plain numbered text, or — if the user
+is not there to answer — write SESSION.md with the defaults (MULTITASK off, all agents,
+MODEL inherit, EFFORT default) and say plainly which defaults you used.
 
 **Q1 — header "Многозадачность"**
 "Включить режим многозадачности?"
