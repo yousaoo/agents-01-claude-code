@@ -1,7 +1,7 @@
 {
   "name": "ceo-team",
   "displayName": "CEO Team — 10 агентов Claude Code",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Иерархия из 10 агентов во главе с ceo-agent. Короткие манифесты-конституции, память с маркерами, RECOVERY-бэкапы, опрос при старте сессии.",
   "author": {
     "name": "yousaoo",
