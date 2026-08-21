@@ -12,23 +12,30 @@ TPL="${CLAUDE_PLUGIN_ROOT:-}/template"
 TODAY="$(date +%F)"
 FRESH=0
 
-# --- first deployment -------------------------------------------------------
-if [ ! -d "$AG" ]; then
-  FRESH=1
-  mkdir -p "$AG/memory" "$AG/RECOVERY" "$MEDIA"
-  for a in ceo manager frontend backend design researcher server security business memory; do
-    mkdir -p "$AG/memory/$a-agent"
-    [ -f "$AG/memory/$a-agent/INDEX.md" ] || \
-      printf '# INDEX — %s-agent\n# one line per block: [tags] YYYY-MM-DD Title -> file\n' "$a" \
-      > "$AG/memory/$a-agent/INDEX.md"
-  done
-  [ -d "$TPL" ] && for f in TO-DO-LIST.md READY-LIST.md; do
+# --- deployment: every item checked on its own -------------------------------
+# Never gate this on "does claude-agents/ exist" — /start creates that folder for
+# SESSION.md alone, and a coarse gate would then skip the rest of the structure.
+[ -d "$AG/memory" ]   || FRESH=1
+[ -d "$MEDIA" ]       || FRESH=1
+mkdir -p "$AG/memory" "$AG/RECOVERY" "$MEDIA"
+for a in ceo manager frontend backend design researcher server security business memory; do
+  mkdir -p "$AG/memory/$a-agent"
+  [ -f "$AG/memory/$a-agent/INDEX.md" ] || \
+    printf '# INDEX — %s-agent\n# one line per block: [tags] YYYY-MM-DD Title -> file\n' "$a" \
+    > "$AG/memory/$a-agent/INDEX.md"
+done
+if [ -d "$TPL" ]; then
+  for f in TO-DO-LIST.md READY-LIST.md; do
     [ -f "$TPL/$f" ] && [ ! -f "$AG/$f" ] && cp "$TPL/$f" "$AG/$f"
   done
   [ -f "$TPL/RECOVERY/MASTER.md" ] && [ ! -f "$AG/RECOVERY/MASTER.md" ] && \
     cp "$TPL/RECOVERY/MASTER.md" "$AG/RECOVERY/MASTER.md"
-  printf '# media dump for agents — never committed\n' > "$MEDIA/.gitkeep"
 fi
+[ -f "$MEDIA/README.md" ] || printf '%s\n' \
+  '# Материалы для агентов' '' \
+  'Кладите сюда что угодно: скриншоты, выгрузки, тексты, черновики.' \
+  'ceo-agent берёт отсюда исходники по вашей просьбе, агенты складывают сюда' \
+  'любые .md, не относящиеся к их работе.' > "$MEDIA/README.md"
 
 # --- self-ignoring folders: layer 1, independent of the project .gitignore ---
 # "*" inside the folder hides the folder's whole content from git even if the
