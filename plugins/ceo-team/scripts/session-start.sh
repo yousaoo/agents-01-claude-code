@@ -30,7 +30,13 @@ if [ ! -d "$AG" ]; then
   printf '# media dump for agents — never committed\n' > "$MEDIA/.gitkeep"
 fi
 
-# --- gitignore (idempotent) -------------------------------------------------
+# --- self-ignoring folders: layer 1, independent of the project .gitignore ---
+# "*" inside the folder hides the folder's whole content from git even if the
+# root .gitignore is rewritten, or the folder is copied into another repo.
+[ -f "$AG/.gitignore" ]    || printf '*\n' > "$AG/.gitignore"
+[ -f "$MEDIA/.gitignore" ] || printf '*\n' > "$MEDIA/.gitignore"
+
+# --- gitignore: layer 2, the project root (idempotent) ----------------------
 GI="$ROOT/.gitignore"
 if ! grep -qs '^claude-agents/$' "$GI" 2>/dev/null; then
   { [ -s "$GI" ] && [ -n "$(tail -c1 "$GI")" ] && echo; } >> "$GI" 2>/dev/null

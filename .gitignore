@@ -1,3 +1,8 @@
 .DS_Store
+
+# Claude Code — локальные настройки, в репу не уезжают
+.claude/
+
+# Память агентов и свалка материалов — на GitHub всегда нулевые агенты
 claude-agents/
 claude-media-agents/
