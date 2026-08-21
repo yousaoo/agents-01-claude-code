@@ -44,6 +44,7 @@ if ! grep -qs '^claude-agents/$' "$GI" 2>/dev/null; then
     echo "# ceo-team agents: memory and scratch never leave the machine"
     echo "claude-agents/"
     echo "claude-media-agents/"
+    grep -qs '^\.claude/$' "$GI" || echo ".claude/"
   } >> "$GI"
 fi
 
