@@ -9,6 +9,26 @@
           }
         ]
       }
+    ],
+    "ConfigChange": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}\"/scripts/session-start.sh quiet"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}\"/scripts/session-start.sh quiet"
+          }
+        ]
+      }
     ]
   }
 }

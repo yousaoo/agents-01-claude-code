@@ -4,6 +4,10 @@
 # config (cheap) or asks Claude to run the survey (only when config is stale).
 set -uo pipefail
 
+# "quiet" — фоновый прогон (UserPromptSubmit / ConfigChange): молчит, если всё на месте.
+QUIET=0
+[ "${1:-}" = "quiet" ] && QUIET=1
+
 ROOT="${CLAUDE_PROJECT_DIR:-$PWD}"
 AG="$ROOT/claude-agents"
 MEDIA="$ROOT/claude-media-agents"
@@ -59,6 +63,12 @@ fi
 NEED_SURVEY=1
 if [ -f "$SESSION" ]; then
   grep -q "^DATE: $TODAY\$" "$SESSION" && NEED_SURVEY=0
+fi
+
+if [ "$QUIET" = 1 ]; then
+  # Разворачивание уже произошло выше. Говорим, только если реально что-то создали.
+  [ "$FRESH" = 1 ] && echo "[ceo-team] Рабочие папки развёрнуты: claude-agents/, claude-media-agents/. Настроить сессию: /start"
+  exit 0
 fi
 
 # Status line only. This hook reports state; it does not direct the session.
